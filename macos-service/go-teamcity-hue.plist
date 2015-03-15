@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Disabled</key>
+    <true/>
+    <key>Label</key>
+    <string>go-teamcity-hue</string>
+    <key>OnDemand</key>
+    <false/>
+    <key>ProgramArguments</key>
+    <array>
+    	<string>/Users/eugene/go/src/signals/signals</string>
+    	<!-- <string>-k</string>
+    	<string>start</string> -->
+    </array>
+</dict>
+</plist>
