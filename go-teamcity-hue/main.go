@@ -9,8 +9,8 @@ import (
 
 func main() {
     config := teamcity.Config{}
-    config.Login    = "ca\\yevgenk"
-    config.Password = "5tgb%TGB6yhn^YHN"
+    config.Login    = "[[login]]" //TODO: fix this
+    config.Password = "[[password]]" //TODO: fix this
     config.RefreshInSec = 20 * time.Second
 
     api := teamcity.Setup(config)
