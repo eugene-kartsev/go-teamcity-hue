@@ -10,9 +10,7 @@
     <false/>
     <key>ProgramArguments</key>
     <array>
-    	<string>/Users/eugene/go/src/signals/signals</string>
-    	<!-- <string>-k</string>
-    	<string>start</string> -->
+    	<string>[[path to the binary]]</string><!-- TODO: change this -->
     </array>
 </dict>
 </plist>
