@@ -15,7 +15,7 @@ func main() {
 
     api := teamcity.Setup(config)
 
-    hue.Init("http://10.10.0.80/api/newdeveloper/lights/")
+    hue.Init("http://[[ip]]/api/newdeveloper/lights/") //TODO: fix this
 
     api.Watch(func(statusOK bool) {
         if statusOK {
