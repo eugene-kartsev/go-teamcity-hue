@@ -9,13 +9,13 @@ import (
 
 func main() {
     config := teamcity.Config{}
-    config.Login    = "[[login]]" //TODO: fix this
-    config.Password = "[[password]]" //TODO: fix this
+    config.Login    = "ca\\yevgenk" //TODO: fix this
+    config.Password = "5tgb%TGB6yhn^YHN" //TODO: fix this
     config.RefreshInSec = 20 * time.Second
 
     api := teamcity.Setup(config)
 
-    hue.Init("http://[[ip]]/api/newdeveloper/lights/") //TODO: fix this
+    hue.Init("http://10.10.0.80/api/newdeveloper/lights/") //TODO: fix this
 
     api.Watch(func(statusOK bool) {
         if statusOK {
