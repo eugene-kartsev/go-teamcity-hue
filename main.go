@@ -4,33 +4,41 @@ import (
     "fmt"
     "go-teamcity-hue/teamcity"
     "go-teamcity-hue/hue"
-    "time"
+    "go-teamcity-hue/dispatcher"
+    "go-teamcity-hue/config"
 )
 
 func main() {
-    config := teamcity.Config{}
-    config.Login    = "[login]" //TODO: fix this
-    config.Password = "[password]" //TODO: fix this
-    config.RefreshInSec = 20 * time.Second
 
-    api := teamcity.Setup(config)
+    cfg, err := config.Create()
+    if err != nil {
+        return
+    }
 
-    hue.Init("http://10.10.0.80/api/newdeveloper/lights/") //TODO: fix this
 
-    api.Watch(func(statusOK bool) {
-        if statusOK {
-            //fmt.Println("GREEN")
-            go hue.Green()
-        } else {
-            //fmt.Println("RED")
-            go hue.Red()
-        }
-    })
+    tc, err := teamcity.Create(cfg)
+    if err != nil {
+        fmt.Println(err.Error())
+        return
+    }
 
+    hue, err := hue.Create(cfg)
+    if err != nil {
+        fmt.Println(err.Error())
+        return
+    }
+
+    fmt.Println("CONFIGURATION is OK. Starting...")
+    go dispatcher.Start(tc, hue)
+
+    waitEnterThenQuit()
+}
+
+func waitEnterThenQuit() {
     quit := make(chan bool)
 
     go func() {
-        fmt.Println("Press Enter to close the app...")
+        fmt.Println("Press ENTER to close the app...")
 
         var message string
         fmt.Scanf("%s", &message)

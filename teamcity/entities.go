@@ -1,26 +1,5 @@
 package teamcity
 
-import "time"
-
-
-//items to track:
-//project/build_type
-//examples:
-//  */* - every single project and build type
-//  PressReader/* - everything from Pressreader project
-//  */pressreader-common - find all build types with name 'pressreader-common'
-//  PressReader/pressreader-common - only a single project
-//  !*/* - this doesn't make sense, skip this rule
-//  !PressReader/pressreader-common - exclude
-//  !PressReader/* - exclude
-//  !*/pressreader-common - exclude
-
-type Config struct {
-    Login         string
-    Password      string
-    RefreshInSec  time.Duration
-}
-
 type Project struct {
     Id              string
     Name            string
@@ -28,12 +7,7 @@ type Project struct {
     Href            string
     WebUrl          string
     ParentProjectId string
-    BuildTypes      BuildTypeList
-}
-
-type ProjectList struct {
-    Count   int
-    Project []Project
+    BuildTypes      []BuildType `json:"-"`
 }
 
 type BuildType struct {
@@ -45,16 +19,26 @@ type BuildType struct {
     WebUrl      string
 }
 
-type BuildTypeList struct {
-    Count     int
-    BuildType []BuildType
+type projectList struct {
+    Count   int
+    Projects []Project `json:"project"`
 }
 
-const (
-    SUCCESS = "SUCCESS"
-    FAILURE = "FAILURE"
-    ERROR   = "ERROR"
-)
+type projectBuildTypes struct {
+    Id         string
+    BuildTypes buildTypeList
+}
+
+type buildTypeList struct {
+    Count      int
+    BuildTypes []BuildType `json:"BuildType"`
+}
+
+type buildList struct {
+    Count int
+    Href  string
+    Builds []Build `json:"Build"`
+}
 
 type Build struct {
     Id          int
@@ -64,15 +48,8 @@ type Build struct {
     State       string
 }
 
-type BuildList struct {
-    Count int
-    Href  string
-    Build []Build
-}
-
-type buildState struct {
-    buildTypeId  string
-    currentState bool
-    oldState     bool
-    isNew        bool
-}
+const (
+    SUCCESS = "SUCCESS"
+    FAILURE = "FAILURE"
+    ERROR   = "ERROR"
+)
