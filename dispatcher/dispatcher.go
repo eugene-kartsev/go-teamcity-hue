@@ -119,10 +119,13 @@ func fetchBuildStatus() *[]buildState {
         build := &buildsToFetch[index]
         go func() {
             state, err := tc.GetBuildState(&build.buildId)
-            if err != nil && state != nil {
-                success := state.State == teamcity.SUCCESS
+            fmt.Println(state)
+            if err == nil && state != nil {
+                success := state.Status == teamcity.SUCCESS
                 if success {
                     build.status = STATUS_SUCCESS
+                } else {
+                    build.status = STATUS_FAILED
                 }
             }
             done <- true
@@ -141,6 +144,7 @@ func updateBuildStatus(newState *[]buildState) {
 
     for _, newBuildState := range (*newState) {
         oldBuildState, ok := _buildState[newBuildState.buildId]
+
         if ok && newBuildState.status != oldBuildState.status {
             if newStatus != STATUS_FAILED {
                 newStatus = newBuildState.status
@@ -165,7 +169,7 @@ func fetchProjectStructure() {
         if projectMapHasChanges(projects) {
             <- canReed
 
-            _projects    = projects
+            _projects   = projects
             _buildState = make(map[string] buildState)
 
             for _, project := range _projects {
