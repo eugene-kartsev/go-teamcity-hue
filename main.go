@@ -2,15 +2,23 @@ package main
 
 import (
     "github.com/eugene-kartsev/go-teamcity-hue/server/worker"
+    "github.com/eugene-kartsev/go-teamcity-hue/server/config"
     "fmt"
 )
 
 func main() {
-    tcUrl := ""
-    tcLogin := ""
-    tcPassword := ""
-    hueUrl := ""
-    interval := 60
+
+    cfg, err := config.Read()
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    tcUrl := cfg.TeamCityNodes[0].Url
+    tcLogin := cfg.TeamCityNodes[0].Login
+    tcPassword := cfg.TeamCityNodes[0].Password
+    hueUrl := cfg.HueNodes[0].Url
+    interval := cfg.TeamCityNodes[0].Interval
 
     go worker.Start(tcUrl, tcLogin, tcPassword, hueUrl, interval)
 
