@@ -1,40 +1,23 @@
 package main
 
 import (
+    "github.com/eugene-kartsev/go-teamcity-hue/server/worker"
     "fmt"
-    "go-teamcity-hue/teamcity"
-    "go-teamcity-hue/hue"
-    "go-teamcity-hue/dispatcher"
-    "go-teamcity-hue/config"
 )
 
 func main() {
+    tcUrl := ""
+    tcLogin := ""
+    tcPassword := ""
+    hueUrl := ""
+    interval := 60
 
-    cfg, err := config.Create()
-    if err != nil {
-        return
-    }
+    go worker.Start(tcUrl, tcLogin, tcPassword, hueUrl, interval)
 
-
-    tc, err := teamcity.Create(cfg)
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
-
-    hue, err := hue.Create(cfg)
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
-
-    fmt.Println("CONFIGURATION is OK. Starting...")
-    go dispatcher.Start(tc, hue)
-
-    waitEnterThenQuit()
+    onQuit()
 }
 
-func waitEnterThenQuit() {
+func onQuit() {
     quit := make(chan bool)
 
     go func() {
