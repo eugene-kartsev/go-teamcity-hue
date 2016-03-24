@@ -7,20 +7,13 @@ import (
 )
 
 func main() {
-
     cfg, err := config.Read()
     if err != nil {
         fmt.Println(err)
         return
     }
 
-    tcUrl := cfg.TeamCityNodes[0].Url
-    tcLogin := cfg.TeamCityNodes[0].Login
-    tcPassword := cfg.TeamCityNodes[0].Password
-    hueUrl := cfg.HueNodes[0].Url
-    interval := cfg.TeamCityNodes[0].Interval
-
-    go worker.Start(tcUrl, tcLogin, tcPassword, hueUrl, interval)
+    worker.Init(cfg);
 
     onQuit()
 }

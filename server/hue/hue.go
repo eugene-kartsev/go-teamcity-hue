@@ -9,7 +9,10 @@ import (
     "errors"
 )
 
-func Signal(url string, signal int) (ok bool, err error) {
+var greenBytes = []byte(`{"on":true, "sat":249, "bri":113, "hue":22784}`)
+var redBytes   = []byte(`{"on":true, "sat":249, "bri":113, "hue":1000}`)
+
+func Signal(url string, signal int) (bool, error) {
     if signal == RED {
         return setRed(url)
     }
@@ -46,57 +49,10 @@ func setColor(url string, requestBody []byte) (ok bool, err error) {
     return
 }
 
-
 func setGreen(url string) (bool, error) {
-    result := make(chan error)
-
-    go func() {
-        bytes := []byte(`{"on":true, "sat":249, "bri":113, "hue":22784}`)
-        _, err := setColor(url + "1/state", bytes)
-        result <- err
-    }()
-    go func() {
-        bytes := []byte(`{"on":true, "sat":249, "bri":113, "hue":22784}`)
-        _, err := setColor(url + "2/state", bytes)
-        result <- err
-    }()
-
-    err1 := <-result
-    err2 := <-result
-
-    if err1 != nil {
-        return false, err1
-    }
-
-    if err2 != nil {
-        return false, err2
-    }
-
-    return true, nil
+    return setColor(url, greenBytes)
 }
 
 func setRed(url string) (bool, error) {
-    result := make(chan error)
-
-    go func() {
-        _, err := setColor(url + "1/state", []byte(`{"on":true, "sat":249, "bri":113, "hue":1000}`))
-        result <- err
-    }()
-    go func() {
-        _, err := setColor(url + "2/state", []byte(`{"on":true, "sat":249, "bri":113, "hue":1000}`))
-        result <- err
-    }()
-
-    err1 := <- result
-    err2 := <- result
-
-    if err1 != nil {
-        return false, err1
-    }
-
-    if err2 != nil {
-        return false, err2
-    }
-
-    return true, nil
+    return setColor(url, redBytes)
 }
