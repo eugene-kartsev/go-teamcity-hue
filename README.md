@@ -7,7 +7,7 @@ The following steps describe the installation process for MacOS, but they are pr
 
 #####1. You're going to need a [TeamCity installation](https://confluence.jetbrains.com/display/TCD9/Installing+and+Configuring+the+TeamCity+Server).
 
-#####2. Make sure you can log-in into the TeamCity REST API and see your the latest build status. An example of the TeamCity REST API request URL would be:
+#####2. Make sure you can log-in into the TeamCity REST API and see the latest build status. An example of the TeamCity REST API request URL would be:
 
  ```
  https://<HOST>/httpAuth/app/rest/buildTypes/id:<BUILD_ID>/builds?locator=branch:<BRANCH>&count=1
@@ -15,21 +15,21 @@ The following steps describe the installation process for MacOS, but they are pr
    
    and here is an example of the TeamCity REST API response:
    
-   ```xml
-  <builds count="1" href="/httpAuth/app/rest/buildTypes/id:ID/builds?locator=branch:DEV&count=1"
-          nextHref="/httpAuth/app/rest/buildTypes/id:ID/builds?locator=count:1,start:1,branch:DEV">
-          
-    <build id="139992" buildTypeId="ID" number="2.1-beta.53"
-           status="SUCCESS" state="finished" branchName="DEV"
-           defaultBranch="true" href="/httpAuth/app/rest/builds/id:139992" 
-           webUrl="https://HOST/viewLog.html?buildId=139992&buildTypeId=ID"/>
+ ```xml
+ <builds count="1" href="/httpAuth/app/rest/buildTypes/id:ID/builds?locator=branch:DEV&count=1"
+         nextHref="/httpAuth/app/rest/buildTypes/id:ID/builds?locator=count:1,start:1,branch:DEV">
+
+   <build id="139992" buildTypeId="ID" number="2.1-beta.53"
+          status="SUCCESS" state="finished" branchName="DEV"
+          defaultBranch="true" href="/httpAuth/app/rest/builds/id:139992" 
+          webUrl="https://HOST/viewLog.html?buildId=139992&buildTypeId=ID"/>
            
-  </builds>
-   ```
+ </builds>
+ ```
 
    If you need more info about the TeamCity REST API and how works, check [their documentation](https://confluence.jetbrains.com/display/TW/REST+API#RESTAPI-BuildLocator).
 
-#####3. You're going to need a HUE lamp (similar to this one: [hue bloom](https://www.google.ca/search?q=hue+bloom)). The lamp connects to your wi-fi network and listens to your "commands" via a http web server (check their [REST api](http://www.developers.meethue.com/philips-hue-api) - it's pretty straightforward).
+#####3. You're going to need a HUE lamp (similar to this one: [hue bloom](https://www.google.ca/search?q=hue+bloom)). The lamp connects to your local wi-fi network and listens to your "commands" via a http web server (check their [REST API](http://www.developers.meethue.com/philips-hue-api) for more details).
 
 #####4. Build 'go-teamcity-hue' from the source code (using the [golang compiler](https://golang.org/doc/code.html)) or download the latest binary release from this repository.
 
@@ -81,4 +81,4 @@ The following steps describe the installation process for MacOS, but they are pr
 
 #####9. Modify the file accordingly to your settings.
 
-#####10. After the configuration file is ready, start the application once again. You should see the messages in your console and your HUE lamp should start changing its colors depending on the TeamCity build status.
+#####10. After the configuration file is ready, start the application once again. You should see messages in your console and your HUE lamp should start changing its colors depending on the TeamCity build status.
