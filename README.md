@@ -1,19 +1,19 @@
-##### What is 'go-teamcity-hue'?
+## What is 'go-teamcity-hue'?
 It is an application written in [golang](https://golang.org/) to make it possible to connect a [TeamCity](www.jetbrains.com/teamcity) build status with a [HUE-Phillips](http://www.developers.meethue.com/) lamps' signals. So that when your build goes "red", your HUE lamp turns red too.
 
 
-##### How do I make it work?
+## How do I make it work?
 The following steps describe the installation process for MacOS, but they are pretty much similar for every system.
 
-1. You're going to need a [TeamCity installation](https://confluence.jetbrains.com/display/TCD9/Installing+and+Configuring+the+TeamCity+Server).
+#####1. You're going to need a [TeamCity installation](https://confluence.jetbrains.com/display/TCD9/Installing+and+Configuring+the+TeamCity+Server).
 
-2. Make sure you can log-in into TeamCity REST Api and see your latest build status. An example for the TeamCity Api url would be:
+#####2. Make sure you can log-in into the TeamCity REST API and see your the latest build status. An example of the TeamCity REST API request URL would be:
 
  ```
  https://<HOST>/httpAuth/app/rest/buildTypes/id:<BUILD_ID>/builds?locator=branch:<BRANCH>&count=1
  ```
    
-   and here is an example of a TeamCity REST Api response:
+   and here is an example of the TeamCity REST API response:
    
    ```xml
   <builds count="1" href="/httpAuth/app/rest/buildTypes/id:ID/builds?locator=branch:DEV&count=1"
@@ -26,21 +26,21 @@ The following steps describe the installation process for MacOS, but they are pr
            
   </builds>
    ```
-   
-   If you need more info about how the TeamCity REST Api works, check [their documentation](https://confluence.jetbrains.com/display/TW/REST+API#RESTAPI-BuildLocator).
-   
-3. You're going to need a HUE lamp, similar to this one: [hue bloom](https://www.google.ca/search?q=hue+bloom). The lamp connects to your wi-fi network and listens to your "commands" via simple http-request-response web server (check their [REST api](http://www.developers.meethue.com/philips-hue-api) - it's pretty straightforward).
 
-4. Build 'go-teamcity-hue' from the source code (using [golang compiler](https://golang.org/doc/code.html)) or download the latest binary release from this repository.
+   If you need more info about the TeamCity REST API and how works, check [their documentation](https://confluence.jetbrains.com/display/TW/REST+API#RESTAPI-BuildLocator).
 
-5. OK, now you are ready to start the application for the first time. Your target directory should look like this:
+#####3. You're going to need a HUE lamp (similar to this one: [hue bloom](https://www.google.ca/search?q=hue+bloom)). The lamp connects to your wi-fi network and listens to your "commands" via a http web server (check their [REST api](http://www.developers.meethue.com/philips-hue-api) - it's pretty straightforward).
+
+#####4. Build 'go-teamcity-hue' from the source code (using the [golang compiler](https://golang.org/doc/code.html)) or download the latest binary release from this repository.
+
+#####5. OK, now you are ready to start the application for the first time. Your target directory should look like this:
 
  ```sh
  user$ ls
    go-teamcity-hue
  ```
 
-6. Start the application for the first time - the configuration file teamplate will be created:
+#####6. Start the application for the first time - the configuration file teamplate will be created:
 
  ```sh
  user$ ./go-teamcity-hue
@@ -48,14 +48,14 @@ The following steps describe the installation process for MacOS, but they are pr
  Modify it and restart the application.
  ```
 
-7. Check that the configuration file exists:
+#####7. Check that the configuration file exists:
 
  ```sh
  user$ ls
   config		go-teamcity-hue
  ```
 
-8. The configuration file should look similar to this:
+#####8. The configuration file should look similar to this:
 
  ```sh
  user$ cat config
@@ -79,6 +79,6 @@ The following steps describe the installation process for MacOS, but they are pr
     }
  ```
 
-9. Modify the file accordingly to your settings.
+#####9. Modify the file accordingly to your settings.
 
-10. After your configuration file is ready, start the application once again. You should see the messages in your console and your HUE lamp should start changing its color depending on TeamCity build status.
+#####10. After the configuration file is ready, start the application once again. You should see the messages in your console and your HUE lamp should start changing its colors depending on the TeamCity build status.
