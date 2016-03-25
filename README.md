@@ -53,7 +53,7 @@ Start the application for the first time - the configuration file teamplate will
  A new configuration file has been created.
  Modify it and restart the application.
  ```
-Check that the configuration file exists:
+Check if the configuration file exists:
 
  ```sh
  user$ ls
