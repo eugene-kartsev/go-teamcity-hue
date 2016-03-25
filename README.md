@@ -3,7 +3,7 @@ It is an application written in [golang](https://golang.org/) to make it possibl
 
 
 ## How do I make it work?
-The following steps describe the installation process for MacOS, but they are pretty much similar for every system.
+The following steps describe the installation process of the 'go-teamcity-hue' on MacOS. They are very similar for every other system.
 
 #####1. You're going to need a [TeamCity installation](https://confluence.jetbrains.com/display/TCD9/Installing+and+Configuring+the+TeamCity+Server).
 
