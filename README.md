@@ -89,3 +89,5 @@ Modify the configuration file accordingly to your settings.
 
 #####8. Start.
 After the configuration file is ready, start the application once again. You should see messages in your console and your HUE lamp should start changing its colors depending on the TeamCity build status.
+
+####Enjoy!
